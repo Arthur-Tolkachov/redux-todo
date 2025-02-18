@@ -2,21 +2,20 @@ import './index.css';
 
 import { StrictMode } from 'react';
 
-import { ThemeProvider } from '@mui/material';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { store } from 'app/store.ts';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { store } from 'store/store.ts';
-
-import { theme } from '@shared/theme/index.ts';
 
 import App from './App.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
         <App />
-      </ThemeProvider>
+      </LocalizationProvider>
     </Provider>
   </StrictMode>,
 );

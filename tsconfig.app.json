@@ -15,11 +15,7 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
-    "paths": {
-      "@shared/*": ["shared/*"],
-      "@features/*": ["features/*"],
-    },
-
+    
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
