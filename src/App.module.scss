@@ -1,0 +1,19 @@
+.wrapper {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+
+  .form {
+    width: 40%;
+    max-width: 500px;
+    padding: 20px;
+    height: 100%;
+    overflow: hidden;
+  }
+}
