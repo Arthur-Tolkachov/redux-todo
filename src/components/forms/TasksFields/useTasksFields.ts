@@ -2,13 +2,13 @@ import { useState } from 'react';
 
 import { useFieldArray } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
-import { CreateTodoFormValues } from 'validation/todo/Todo.schema';
+import { TasksArrayModel } from 'validation/todo';
 
-export const useTasks = () => {
+export const useTasksFields = () => {
   const [editingId, setEditingId] = useState<string | null>(null);
 
   const { fields, append, remove, update } = useFieldArray<
-    CreateTodoFormValues,
+    TasksArrayModel,
     'tasks',
     'fieldId'
   >({

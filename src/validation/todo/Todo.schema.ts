@@ -1,32 +1,23 @@
 import { z } from 'zod';
 
-export const TodoSchema = z.object({
-  title: z
-    .string()
-    .nullable()
-    .refine(value => value, {
+import { TasksArraySchema } from './Tasks.schema';
+
+export const TodoSchema = TasksArraySchema.merge(
+  z.object({
+    id: z.string().uuid(),
+    title: z.string().refine(value => value, {
       message: 'Title is required',
     }),
-  description: z
-    .string()
-    .nullable()
-    .refine(value => value && value.length <= 120, {
-      message: 'Description length should be less or equal 120',
-    }),
-  deadline: z.string().nullable(),
-  priority: z.enum(['normal', 'low', 'high']),
-  tasks: z.array(
-    z.object({
-      id: z.string(),
-      value: z
-        .string()
-        .min(2, {
-          message: 'Task length should be more than 2',
-        })
-        .max(30, 'Task length should be less or equal 30'),
-    }),
-  ),
-});
+    description: z
+      .string()
+      .refine(value => !value || (value && value.length <= 120), {
+        message: 'Description length should be less or equal 120',
+      }),
+    deadline: z.string(),
+    createdAt: z.string(),
+    priority: z.enum(['medium', 'low', 'high']),
+  }),
+);
 
-export type TodoModelSchema = z.infer<typeof TodoSchema>;
-export type CreateTodoFormValues = TodoModelSchema;
+export type TodoModel = z.infer<typeof TodoSchema>;
+export type TodoFormValues = TodoModel;

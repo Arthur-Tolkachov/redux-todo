@@ -1,12 +1,17 @@
 import { Box, Button, Card, IconButton, Stack, TextField } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
+import { selectIsDeleting, selectIsLoading } from 'features/todos/todosSlice';
 
-import styles from './Tasks.module.scss';
-import { useTasks } from './useTasks';
+import styles from './TasksFields.module.scss';
+import { useTasksFields } from './useTasksFields';
 
-export const Tasks = () => {
-  const isLoading = useAppSelector(state => state.todos.isLoading);
-  const { fields, editingId, onBlur, onAdd, onEdit, onDelete } = useTasks();
+export const TasksFields = () => {
+  const isLoading = useAppSelector(selectIsLoading);
+  const isDeleting = useAppSelector(selectIsDeleting);
+  const isDisabled = isLoading || isDeleting;
+
+  const { fields, editingId, onBlur, onAdd, onEdit, onDelete } =
+    useTasksFields();
 
   return (
     <Card className={styles.wrapper} variant="outlined">
@@ -43,14 +48,14 @@ export const Tasks = () => {
                 size="small"
                 color="error"
                 onClick={() => onDelete(field.id)}
-                disabled={isLoading}
+                disabled={isDisabled}
               >
                 +
               </IconButton>
 
               <Box
                 onDoubleClick={() => {
-                  if (!isLoading) {
+                  if (!isDisabled) {
                     onEdit(field.id);
                   }
                 }}
@@ -61,7 +66,7 @@ export const Tasks = () => {
           );
         })}
 
-        <Button variant="contained" onClick={onAdd} disabled={isLoading}>
+        <Button variant="contained" onClick={onAdd} disabled={isDisabled}>
           + Add
         </Button>
       </Stack>
