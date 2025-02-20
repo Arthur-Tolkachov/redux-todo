@@ -2,7 +2,7 @@ import { DatePickerField } from 'components/fields/DatePickerField';
 import { DropdownField } from 'components/fields/DropdownField';
 import { TextField } from 'components/fields/TextField';
 
-import { TasksFields } from '../TasksFields/TasksFields';
+import { TasksFields } from '../TasksFields';
 
 export const TodoFormFields = () => {
   return (
